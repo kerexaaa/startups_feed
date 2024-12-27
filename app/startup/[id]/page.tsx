@@ -5,13 +5,12 @@ import { STARTUPS_BY_ID_QUERY } from "@/sanity/lib/queries";
 import { formatDate } from "@/utils/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import markdownit from "markdown-it";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
 
-export const experimental_ppr = true;
+// export const experimental_ppr = true;
 const md = markdownit();
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
