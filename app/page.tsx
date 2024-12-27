@@ -39,7 +39,7 @@ Connect with Entrepreneurs"
         <p className="mt-7 font-semibold text-3xl">
           {query ? `Search results for "${query}"` : "All startups"}
         </p>
-        <ul className="mt-7 grid grid-rows-3 md:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-3">
+        <ul className="mt-7 grid md:grid-cols-2 xl:grid-cols-3 grid-cols-1 gap-3">
           {posts.length > 0 ? (
             posts.map((post: StartupCardType) => (
               <StartupCard key={post._id} post={post} />
