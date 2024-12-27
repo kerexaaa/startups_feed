@@ -5,7 +5,7 @@ import StartupCard, { StartupCardType } from "@/components/StartupCard";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
-export const options = { next: { revalidate: 30 } };
+export const options = { next: { revalidate: 10 } };
 
 const Home = async ({
   searchParams,
