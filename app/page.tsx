@@ -19,10 +19,6 @@ const Home = async ({
 
   const session = await auth();
 
-  if (session) {
-    console.log(session?.id);
-  }
-
   return (
     <>
       <div className="flex flex-col items-center bg-hero-default bg-pink justify-center gap-8 py-8 px-5 md:py-16 md:px-10">
@@ -35,7 +31,7 @@ Connect with Entrepreneurs"
         />
         <SearchForm query={query} />
       </div>
-      <div className="mx-5 my-6 md:mx-10 md:my-12">
+      <div className="mx-2 my-5 sm:mx-5 sm:my-6 md:mx-10 md:my-12">
         <p className="mt-7 font-semibold text-3xl">
           {query ? `Search results for "${query}"` : "All startups"}
         </p>

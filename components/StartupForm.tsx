@@ -6,9 +6,10 @@ import { useActionState, useState } from "react";
 import { Textarea } from "./ui/textarea";
 import MDEditor from "@uiw/react-md-editor";
 import { FiSend } from "react-icons/fi";
-import { formSchema, validateEdit } from "@/validation";
+import { formSchema } from "@/validation";
 import Button from "./Button";
 import { z } from "zod";
+import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { createStartup } from "@/utils/actions";
 import { toast } from "react-toastify";
@@ -28,17 +29,14 @@ const StartupForm = () => {
         pitch: value,
       };
 
-      await validateEdit(formValues);
+      await formSchema.parseAsync(formValues);
       console.log(formSchema);
 
       const res = await createStartup(prev, formData, value);
 
       if (res.status == "success") {
         toast.success(
-          "that's what i'm talking about! startup has been created!",
-          {
-            autoClose: 10000,
-          }
+          "that's what i'm talking about! startup has been created!"
         );
 
         console.log(res);
@@ -53,16 +51,12 @@ const StartupForm = () => {
 
         setErrors(fieldErrors as unknown as Record<string, string>);
 
-        toast.error("just make sure you wrote everything right", {
-          autoClose: 10000,
-        });
+        toast.error("just make sure you wrote everything right");
 
         return { ...prev, error: "Validation failed", status: "error" };
       }
 
-      toast.error("ugh... that was unexpected error, try a bit later", {
-        autoClose: 10000,
-      });
+      toast.error("ugh... that was unexpected error, try a bit later");
 
       return { ...prev, error: "Something went wrong", status: "error" };
     }

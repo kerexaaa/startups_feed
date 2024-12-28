@@ -5,7 +5,25 @@ import { parseAction } from "./utils";
 import slugify from "slugify";
 import { writeClient } from "@/sanity/lib/write-client";
 import { client } from "@/sanity/lib/client";
-import { AUTHOR_BY_ID } from "@/sanity/lib/queries";
+import { AUTHOR_BY_ID, STARTUP_BY_ID } from "@/sanity/lib/queries";
+
+export const deleteStartup = async (id: string) => {
+  const session = await auth();
+  if (!session) {
+    return parseAction({
+      error:
+        "i don't even know how you performed this action, but please log in first",
+      status: "error",
+    });
+  }
+
+  try {
+    const res = writeClient.delete({ query: STARTUP_BY_ID, params: { id } });
+    return res;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const updateUser = async (state: any, formData: FormData) => {
   const session = await auth();
@@ -50,7 +68,8 @@ export const createStartup = async (
 
   if (!session) {
     return parseAction({
-      error: "arghh, sign in first to perform this action",
+      error:
+        "i don't even know how you performed this action, but please log in first",
       status: "error",
     });
   }

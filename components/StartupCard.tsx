@@ -4,10 +4,13 @@ import Link from "next/link";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import Button from "./Button";
 import { Author, Startup } from "@/sanity/types";
+import { auth } from "@/auth";
+import { deleteStartup } from "@/utils/actions";
+import DeleteStartupButton from "./DeleteStartupButton";
 
 export type StartupCardType = Omit<Startup, "author"> & { author?: Author };
 
-const StartupCard = ({ post }: { post: StartupCardType }) => {
+const StartupCard = async ({ post }: { post: StartupCardType }) => {
   const {
     _createdAt,
     views,
@@ -18,6 +21,9 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
     image,
     description,
   } = post;
+
+  const session = await auth();
+  console.log("Startup card session", session);
 
   return (
     <li className="p-3 md:p-6 flex flex-col justify-between border-4 border-black h-full rounded-xl border-r-8 border-b-8 transition ease-linear group hover:border-pink hover:bg-pink/10">
@@ -30,7 +36,7 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
           </div>
         </div>
         <div className="flex justify-between my-2 md:my-5 gap-5">
-          <div className="flex-1">
+          <div className="flex-1 line-clamp-1">
             <Link href={`/user/${author?._id}`}>
               <p className="font-semibold line-clamp-1 break-words">
                 {author?.name}
@@ -65,9 +71,12 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
         <Link href={`/?query=${category?.toLowerCase()}`}>
           <p>{category}</p>
         </Link>
-        <Button className="text-white bg-black py-2 px-6 text-lg rounded-full hover:bg-pink transition ease-in-out">
-          <Link href={`/startup/${_id}`}>Details</Link>
-        </Button>
+        <div className="flex gap-2 justify-end flex-wrap">
+          <Button className="text-white bg-black py-2 px-6 text-lg rounded-full hover:bg-pink transition ease-in-out">
+            <Link href={`/startup/${_id}`}>Details</Link>
+          </Button>
+          {session?.id == author?._id && <DeleteStartupButton _id={_id} />}
+        </div>
       </div>
     </li>
   );

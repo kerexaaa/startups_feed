@@ -56,6 +56,9 @@ export const STARTUP_VIEWS_QUERY =
     _id, views
   }`);
 
+export const STARTUP_BY_ID = defineQuery(`
+  *[_type == "startup" && _id == $id]`);
+
 export const AUTHOR_BY_SESSION = defineQuery(`
   *[_type == "author" && email == $email][0] {    
     _id, name, username, email, image, bio, password

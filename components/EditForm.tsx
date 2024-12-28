@@ -6,11 +6,11 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import Button from "./Button";
 import { FiSend } from "react-icons/fi";
-import { editSchema, formSchema } from "@/validation";
 import { updateUser } from "@/utils/actions";
 import { useEditProfileModal } from "@/hooks/useEditProfileModal";
 import { z } from "zod";
 import { toast } from "react-toastify";
+import { editSchema } from "@/validation";
 
 const EditForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -26,7 +26,6 @@ const EditForm = () => {
       };
 
       await editSchema.parseAsync(formValues);
-      console.log(formSchema);
       const res = await updateUser(prev, formData);
       console.log(formValues);
 

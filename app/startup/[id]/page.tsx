@@ -38,7 +38,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           bottomHeader={post.description}
         />
       </div>
-      <div className="px-10 py-12">
+      <div className="px-3 sm:px-10 py-5 sm:py-12">
         <img
           src={post.image}
           className="w-full mx-auto h-auto rounded-xl object-cover max-w-6xl"
@@ -57,7 +57,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 className="aspect-square object-cover rounded-full drop-shadow-lg"
               ></Image>
               <div>
-                <p className="text-xl">{post.author?.name}</p>
+                <p className="text-lg sm:text-xl">{post.author?.name}</p>
                 <p className="text-gray-600">@{post.author?.username}</p>
               </div>
             </Link>

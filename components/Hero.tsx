@@ -42,15 +42,17 @@ const Hero = ({
         </div>
       )}
       {primaryHeader && (
-        <div className="bg-black py-5 px-8 h-auto break-words">
-          <h1 className="flex flex-col text-2xl md:text-5xl font-extrabold text-white uppercase text-center max-w-[800px]">
+        <div className="bg-black py-5 px-8 h-auto break-all">
+          <h1 className="flex flex-col text-2xl md:text-5xl font-extrabold text-white uppercase text-center break-words max-w-[360px] sm:max-w-[568px] md:max-w-[800px]">
             {primaryHeader}
           </h1>
         </div>
       )}
       {bottomHeader && (
         <div>
-          <p className="text-lg md:text-xl text-white text-center">{bottomHeader}</p>
+          <p className="text-lg md:text-xl text-white text-center break-all">
+            {bottomHeader}
+          </p>
         </div>
       )}
     </>

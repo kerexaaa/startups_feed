@@ -12,26 +12,37 @@ import { AUTHOR_BY_ID } from "@/sanity/lib/queries";
 const Header = ({ session }: { session: any }) => {
   const { open, changeModal } = useAuthModal();
   const [user, setUser] = useState<any>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
       const id = session.id;
-      const user = await client.fetch(AUTHOR_BY_ID, { id });
-      setUser(user);
+      if (id) {
+        const user = await client.fetch(AUTHOR_BY_ID, { id });
+        setUser(user);
+      }
+      setLoading(false);
+      if (session?.id) {
+        fetchUser();
+      } else {
+        setLoading(false);
+      }
     };
 
     fetchUser();
   }, []);
 
-  console.log(user);
-
   return (
-    <div className="flex px-5 sm:px-10 justify-between items-center py-5 h-[70px] bg-white">
+    <div className="flex px-3 sm:px-10 justify-between items-center py-5 h-[70px] bg-white">
       <Link href="/">
         <Image src="/logo.svg" alt="Logo" width={143} height={30} />
       </Link>
       <div className="flex gap-2 sm:gap-10">
-        {user ? (
+        {loading ? (
+          <>
+            <Button disabled>Loading...</Button>
+          </>
+        ) : user ? (
           <>
             <Link href="/create" className="flex items-center">
               <Button>Create</Button>
@@ -49,7 +60,7 @@ const Header = ({ session }: { session: any }) => {
             </Button>
             <Link href={`/user/${user._id}`}>
               <Image
-                src={user.image as string}
+                src={(user.image as string) || "/default.jpg"}
                 alt="Profile pic"
                 width={36}
                 height={36}
