@@ -12,6 +12,8 @@ import { Suspense } from "react";
 
 // export const experimental_ppr = true;
 
+export const options = { next: { revalidate: 10 } };
+
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
@@ -50,7 +52,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <p className="mt-1 text-center">{user?.bio}</p>
         </div>
         <div className="flex-1 flex flex-col gap-5 lg:-mt-5">
-          <p className="text-3xl font-bold flex gap-3">
+          <p className="text-3xl font-bold flex gap-3 flex-col sm:flex-row text-center">
             {session?.id == id ? "Your" : "All"} Startups
             {session?.id == id && <EditProfile />}
           </p>

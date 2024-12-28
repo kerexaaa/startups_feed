@@ -10,6 +10,8 @@ import "easymde/dist/easymde.min.css";
 import Header from "@/components/Header";
 import { Flip, ToastContainer } from "react-toastify";
 import { MyEditProfileModalContextProvider } from "@/hooks/useEditProfileModal";
+import { client } from "@/sanity/lib/client";
+import { AUTHOR_BY_ID } from "@/sanity/lib/queries";
 
 const worksans = Work_Sans({ subsets: ["latin"] });
 
@@ -33,7 +35,7 @@ export default async function RootLayout({
             <MyEditProfileModalContextProvider>
               <ModalProvider />
               <body className={worksans.className}>
-                <Header />
+                <Header session={session} />
                 {children}
                 <ToastContainer
                   transition={Flip}

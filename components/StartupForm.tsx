@@ -6,17 +6,16 @@ import { useActionState, useState } from "react";
 import { Textarea } from "./ui/textarea";
 import MDEditor from "@uiw/react-md-editor";
 import { FiSend } from "react-icons/fi";
-import { formSchema } from "@/validation";
+import { formSchema, validateEdit } from "@/validation";
 import Button from "./Button";
 import { z } from "zod";
-import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { createStartup } from "@/utils/actions";
+import { toast } from "react-toastify";
 
 const StartupForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [value, setValue] = useState("");
-  const { toast } = useToast();
   const router = useRouter();
 
   const handleSubmit = async (prev: any, formData: FormData) => {
@@ -29,17 +28,18 @@ const StartupForm = () => {
         pitch: value,
       };
 
-      await formSchema.parseAsync(formValues);
+      await validateEdit(formValues);
       console.log(formSchema);
 
       const res = await createStartup(prev, formData, value);
 
       if (res.status == "success") {
-        toast({
-          title: "success",
-          description:
-            "that's what i'm talking about! startup has been created!",
-        });
+        toast.success(
+          "that's what i'm talking about! startup has been created!",
+          {
+            autoClose: 10000,
+          }
+        );
 
         console.log(res);
 
@@ -53,19 +53,15 @@ const StartupForm = () => {
 
         setErrors(fieldErrors as unknown as Record<string, string>);
 
-        toast({
-          title: "error",
-          description: "just make sure you wrote everything right",
-          variant: "destructive",
+        toast.error("just make sure you wrote everything right", {
+          autoClose: 10000,
         });
 
         return { ...prev, error: "Validation failed", status: "error" };
       }
 
-      toast({
-        title: "error",
-        description: "ugh... that was unexpected error, try a bit later",
-        variant: "destructive",
+      toast.error("ugh... that was unexpected error, try a bit later", {
+        autoClose: 10000,
       });
 
       return { ...prev, error: "Something went wrong", status: "error" };
