@@ -7,7 +7,7 @@ const EditProfile = () => {
   const { open } = useEditProfileModal();
 
   return (
-    <Button className="sm:border-l-3 sm:pl-3 text-red text-3xl" onClick={open}>
+    <Button className="sm:border-l-3 sm:pl-3 text-red !text-3xl" onClick={open}>
       Edit Profile
     </Button>
   );

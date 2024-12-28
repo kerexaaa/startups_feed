@@ -10,10 +10,12 @@ const DeleteStartupButton = ({ _id }: { _id: string }) => {
     try {
       const res = await deleteStartup(_id);
 
-      if (res.status == "success") {
-        toast.success("Startup is going to be deleted in few minutes!");
-      }
-    } catch (error) {}
+      toast.success("Startup is going to be deleted in few minutes!");
+      location.reload();
+      return res;
+    } catch (error) {
+      toast.error("Unexpected error, try later...");
+    }
   };
 
   return (

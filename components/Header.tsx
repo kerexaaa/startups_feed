@@ -16,8 +16,8 @@ const Header = ({ session }: { session: any }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const id = session.id;
-      if (id) {
+      if (session) {
+        const id = session.id;
         const user = await client.fetch(AUTHOR_BY_ID, { id });
         setUser(user);
       }
@@ -27,6 +27,7 @@ const Header = ({ session }: { session: any }) => {
       } else {
         setLoading(false);
       }
+      setLoading(false);
     };
 
     fetchUser();
