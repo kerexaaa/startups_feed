@@ -1,11 +1,13 @@
 import { auth } from "@/auth";
+import Button from "@/components/Button";
+import EditProfile from "@/components/EditProfile";
 import Hero from "@/components/Hero";
 import { Skeleton } from "@/components/ui/skeleton";
 import UserStartups from "@/components/UserStartups";
+import { useEditProfileModal } from "@/hooks/useEditProfileModal";
 import { client } from "@/sanity/lib/client";
 import { AUTHOR_BY_ID, AUTHOR_BY_SESSION } from "@/sanity/lib/queries";
 import Image from "next/image";
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 // export const experimental_ppr = true;
@@ -16,7 +18,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const session = await auth();
 
   const user = await client.fetch(AUTHOR_BY_ID, { id });
-
   console.log(user);
 
   if (!user) {
@@ -49,8 +50,9 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           <p className="mt-1 text-center">{user?.bio}</p>
         </div>
         <div className="flex-1 flex flex-col gap-5 lg:-mt-5">
-          <p className="text-3xl font-bold">
+          <p className="text-3xl font-bold flex gap-3">
             {session?.id == id ? "Your" : "All"} Startups
+            {session?.id == id && <EditProfile />}
           </p>
           <ul className="flex flex-col gap-5 md:grid-cols-2 md:grid md:gap-5">
             <Suspense fallback={<Skeleton />}>

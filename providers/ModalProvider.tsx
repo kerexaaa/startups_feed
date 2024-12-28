@@ -1,5 +1,6 @@
 "use client";
 import AuthModal from "@/components/AuthModal";
+import EditModal from "@/components/EditModal";
 import { useEffect, useState } from "react";
 
 const ModalProvider = () => {
@@ -16,6 +17,7 @@ const ModalProvider = () => {
   return (
     <>
       <AuthModal></AuthModal>
+      <EditModal></EditModal>
     </>
   );
 };

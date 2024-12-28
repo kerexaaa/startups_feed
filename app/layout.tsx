@@ -9,6 +9,7 @@ import { Work_Sans } from "next/font/google";
 import "easymde/dist/easymde.min.css";
 import Header from "@/components/Header";
 import { Flip, ToastContainer } from "react-toastify";
+import { MyEditProfileModalContextProvider } from "@/hooks/useEditProfileModal";
 
 const worksans = Work_Sans({ subsets: ["latin"] });
 
@@ -29,17 +30,19 @@ export default async function RootLayout({
       <SessionProvider session={session}>
         <ProvidersContextProvider>
           <MyAuthModalContextProvider>
-            <ModalProvider />
-            <body className={worksans.className}>
-              <Header />
-              {children}
-              <ToastContainer
-                transition={Flip}
-                autoClose={1500}
-                position="top-center"
-                pauseOnHover={false}
-              />
-            </body>
+            <MyEditProfileModalContextProvider>
+              <ModalProvider />
+              <body className={worksans.className}>
+                <Header />
+                {children}
+                <ToastContainer
+                  transition={Flip}
+                  autoClose={1500}
+                  position="top-center"
+                  pauseOnHover={false}
+                />
+              </body>
+            </MyEditProfileModalContextProvider>
           </MyAuthModalContextProvider>
         </ProvidersContextProvider>
       </SessionProvider>
