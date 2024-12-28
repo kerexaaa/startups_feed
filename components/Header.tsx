@@ -31,7 +31,7 @@ const Header = ({ session }: { session: any }) => {
     };
 
     fetchUser();
-  }, []);
+  }, [session]);
 
   return (
     <div className="flex px-3 sm:px-10 justify-between items-center py-5 h-[70px] bg-white">

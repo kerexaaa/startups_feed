@@ -12,7 +12,7 @@ import { Suspense } from "react";
 
 // export const experimental_ppr = true;
 
-export const options = { next: { revalidate: 10 } };
+export const options = { next: { revalidate: 5 } };
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;

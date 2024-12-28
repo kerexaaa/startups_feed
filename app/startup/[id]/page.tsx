@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
 
 // export const experimental_ppr = true;
+export const options = { next: { revalidate: 5 } };
 const md = markdownit();
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
